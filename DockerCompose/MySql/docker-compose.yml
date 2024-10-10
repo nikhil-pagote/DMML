@@ -22,9 +22,13 @@ services:
       - mysql-data:/var/lib/mysql  # Persist MySQL data
       - ./mysql-init:/docker-entrypoint-initdb.d  # Mount the init.sql script
 
-  metabase:
-    image: metabase/metabase:latest
-    container_name: metabase
+  mysql-workbench:
+    image: linuxserver/mysql-workbench:latest
+    container_name: mysql_workbench
+    depends_on:
+      - mysql
+    networks:
+      - mysql-network
     ports:
       - "3000:3000"
     depends_on:
